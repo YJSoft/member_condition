@@ -95,6 +95,48 @@ class member_conditionController extends member_condition
 
 		}
 	}
+
+	public function triggerAfterModule($oModule)
+	{
+		if(Context::get('act') === 'procMemberCheckValue' && Context::get('value'))
+		{
+			$name = Context::get('name'); 
+			$value = Context::get('value'); 
+
+			if($name === 'email_address')
+			{
+				// 설정 가져오기
+				$oMember_conditionModel = getModel('member_condition');
+				$member_condition_config = $oMember_conditionModel->getMember_conditionConfig();
+
+				if($member_condition_config->allow_email_list)
+				{
+					$email_provider = '';
+					list($email_id, $email_provider) = explode('@', $value);
+					if(!$email_provider) return;
+
+					$allow_email_list_array = explode(',',$member_condition_config->allow_email_list);
+					$blocked = TRUE;
+					foreach($allow_email_list_array as $key => $val)
+					{
+						if(!$val) continue;
+						if($val === $email_provider)
+						{
+							$blocked = FALSE;
+						}
+					}
+					if($blocked === TRUE)
+					{
+						$description_text = sprintf(Context::getLang('member_condition_allow_email_list_blocked'),$member_condition_config->allow_email_list);
+						$oModule->setError(0); 
+						$oModule->setMessage($description_text);
+						return $oModule;
+					}
+				}
+				return;
+			}
+		}
+	}
 }
 /* End of file member_condition.controller.php */
 /* Location: ./modules/member_condition/member_condition.controller.php */

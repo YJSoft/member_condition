@@ -12,7 +12,7 @@ class member_condition extends ModuleObject
 	 *
 	 * @return void
 	 */
-	function member()
+	public function member_condition()
 	{
 		if(!Context::isInstalled()) return;
 
@@ -23,7 +23,7 @@ class member_condition extends ModuleObject
 	 *
 	 * @return Object
 	 */
-	function moduleInstall()
+	public function moduleInstall()
 	{
 		$oModuleController = getController('module');
 
@@ -31,6 +31,7 @@ class member_condition extends ModuleObject
 		$oModuleController->insertTrigger('member.updateMember', 'member_condition', 'controller', 'triggerInsertMember', 'before');
 
 		$oModuleController->insertTrigger('moduleHandler.init', 'member_condition', 'controller', 'triggerInitUpdateEmail', 'before');
+		$oModuleController->insertTrigger('moduleHandler.proc', 'member_condition', 'controller', 'triggerAfterModule', 'after');
 	}
 
 	/**
@@ -38,7 +39,7 @@ class member_condition extends ModuleObject
 	 *
 	 * @return boolean
 	 */
-	function checkUpdate()
+	public function checkUpdate()
 	{
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
@@ -48,6 +49,8 @@ class member_condition extends ModuleObject
 		if(!$oModuleModel->getTrigger('member.updateMember', 'member_condition', 'controller', 'triggerInsertMember', 'before')) return TRUE;
 
 		if(!$oModuleModel->getTrigger('moduleHandler.init', 'member_condition', 'controller', 'triggerInitUpdateEmail', 'before')) return TRUE;
+		if(!$oModuleModel->getTrigger('moduleHandler.proc', 'member_condition', 'controller', 'triggerAfterModule', 'after')) return TRUE;
+
 	}
 
 	/**
@@ -55,7 +58,7 @@ class member_condition extends ModuleObject
 	 *
 	 * @return Object
 	 */
-	function moduleUpdate()
+	public function moduleUpdate()
 	{
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
@@ -68,6 +71,10 @@ class member_condition extends ModuleObject
 
 		if(!$oModuleModel->getTrigger('moduleHandler.init', 'member_condition', 'controller', 'triggerInitUpdateEmail', 'before'))
 			$oModuleController->insertTrigger('moduleHandler.init', 'member_condition', 'controller', 'triggerInitUpdateEmail', 'before');
+
+		if(!$oModuleModel->getTrigger('moduleHandler.proc', 'member_condition', 'controller', 'triggerAfterModule', 'after'))
+			$oModuleController->insertTrigger('moduleHandler.proc', 'member_condition', 'controller', 'triggerAfterModule', 'after');
+
 	}
 
 	/**
@@ -75,7 +82,7 @@ class member_condition extends ModuleObject
 	 *
 	 * @return void
 	 */
-	function recompileCache()
+	public function recompileCache()
 	{
 	}
 }
