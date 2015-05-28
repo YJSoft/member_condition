@@ -53,7 +53,7 @@ class member_conditionController extends member_condition
 	 */
 	public function triggerInitUpdateEmail($obj)
 	{
-		if($obj->act === 'procMemberModifyEmailAddress')
+		if($obj->act === 'procMemberModifyEmailAddress' || Context::get('act')=='procMemberResetAuthMail')
 		{
 			// 설정 가져오기
 			$oMember_conditionModel = getModel('member_condition');
