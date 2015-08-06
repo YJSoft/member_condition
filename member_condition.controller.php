@@ -53,15 +53,22 @@ class member_conditionController extends member_condition
 	 */
 	public function triggerInitUpdateEmail($obj)
 	{
-		if($obj->act === 'procMemberModifyEmailAddress' || Context::get('act')=='procMemberResetAuthMail')
+		if($obj->act === 'procMemberModifyEmailAddress' || Context::get('act')=='procMemberResetAuthMail' || $obj->act === 'procMemberResendAuthMail')
 		{
 			// 설정 가져오기
 			$oMember_conditionModel = getModel('member_condition');
 			$member_condition_config = $oMember_conditionModel->getMember_conditionConfig();
 
-			if(!Context::get('is_logged')) return $this->stop('msg_not_logged');
+			if((!Context::get('is_logged') && $obj->act === 'procMemberModifyEmailAddress')
+				|| (!$_SESSION['auth_member_info'] && Context::get('act') == 'procMemberResetAuthMail'))
+			{
+				return $this->stop('msg_not_logged');
+			}
 
-			$member_info = Context::get('logged_info');
+			if(Context::get('act') != 'procMemberResetAuthMail')
+			{
+				$member_info = Context::get('logged_info');
+			}
 			$newEmail = Context::get('email_address');
 
 			if($member_condition_config->allow_email_list)
@@ -82,7 +89,8 @@ class member_conditionController extends member_condition
 				}
 				if($blocked === TRUE)
 				{
-					$description_text = sprintf(Context::getLang('member_condition_allow_email_list_blocked'),$member_condition_config->allow_email_list);
+					$description_text = sprintf(Context::getLang('member_condition_allow_email_list_blocked'),
+						$member_condition_config->allow_email_list);
 
 					htmlHeader();
 					echo $description_text;
