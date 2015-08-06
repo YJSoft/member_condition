@@ -53,19 +53,19 @@ class member_conditionController extends member_condition
 	 */
 	public function triggerInitUpdateEmail($obj)
 	{
-		if($obj->act === 'procMemberModifyEmailAddress' || Context::get('act')=='procMemberResetAuthMail' || $obj->act === 'procMemberResendAuthMail')
+		if($obj->act === 'procMemberModifyEmailAddress' || $obj->act === 'procMemberResetAuthMail' || $obj->act === 'procMemberResendAuthMail')
 		{
 			// 설정 가져오기
 			$oMember_conditionModel = getModel('member_condition');
 			$member_condition_config = $oMember_conditionModel->getMember_conditionConfig();
 
 			if((!Context::get('is_logged') && $obj->act === 'procMemberModifyEmailAddress')
-				|| (!$_SESSION['auth_member_info'] && Context::get('act') == 'procMemberResetAuthMail'))
+				|| (!$_SESSION['auth_member_info'] && $obj->act == 'procMemberResetAuthMail'))
 			{
 				return $this->stop('msg_not_logged');
 			}
 
-			if(Context::get('act') != 'procMemberResetAuthMail')
+			if($obj->act === 'procMemberModifyEmailAddress')
 			{
 				$member_info = Context::get('logged_info');
 			}
