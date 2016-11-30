@@ -21,6 +21,7 @@ class member_conditionAdminView extends member_condition
 		$member_condition_config = $oMember_conditionModel->getMember_conditionConfig();
 
 		Context::set('allow_email_list', $member_condition_config->allow_email_list);
+		Context::set('allow_admin', $member_condition_config->allow_admin);
 
 		// Specify a template
 		$this->setTemplatePath($this->module_path.'tpl');

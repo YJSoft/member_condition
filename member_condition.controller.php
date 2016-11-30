@@ -17,11 +17,18 @@ class member_conditionController extends member_condition
 	/**
 	 * @brief member_condition module trigger in Member module
 	 */
-	public function triggerInsertMember(&$obj)
+	public function triggerInsertMember($obj)
 	{
 		// 설정 가져오기
 		$oMember_conditionModel = getModel('member_condition');
 		$member_condition_config = $oMember_conditionModel->getMember_conditionConfig();
+
+		// 관리자 권한이 상위권한이라면 관리자일 경우 검사 안함
+		if($member_condition_config->allow_admin === 'otl')
+		{
+			$member_info = Context::get('logged_info');
+			if($member_info && $member_info->is_admin === 'Y') return new Object();
+		}
 
 		if($member_condition_config->allow_email_list)
 		{
@@ -71,6 +78,12 @@ class member_conditionController extends member_condition
 			}
 			$newEmail = Context::get('email_address');
 
+			// 관리자 권한이 상위권한이라면 관리자일 경우 검사 안함
+			if($member_condition_config->allow_admin === 'otl')
+			{
+				if($member_info && $member_info->is_admin === 'Y') return new Object();
+			}
+
 			if($member_condition_config->allow_email_list)
 			{
 				$email_provider = '';
@@ -116,6 +129,13 @@ class member_conditionController extends member_condition
 				// 설정 가져오기
 				$oMember_conditionModel = getModel('member_condition');
 				$member_condition_config = $oMember_conditionModel->getMember_conditionConfig();
+
+				// 관리자 권한이 상위권한이라면 관리자일 경우 검사 안함
+				if($member_condition_config->allow_admin === 'otl')
+				{
+					$member_info = Context::get('logged_info');
+					if($member_info && $member_info->is_admin === 'Y') return new Object();
+				}
 
 				if($member_condition_config->allow_email_list)
 				{

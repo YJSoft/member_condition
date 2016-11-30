@@ -8,6 +8,22 @@
 		<value xml:lang="ko"><![CDATA[회원 가입 조건 설정 모듈 설정]]></value>
 		<value xml:lang="en"><![CDATA[Member Condition Module Settings]]></value>
 	</item>
+	<item name="member_condition_allow_admin">
+		<value xml:lang="ko"><![CDATA[관리자 권한]]></value>
+		<value xml:lang="en"><![CDATA[Administrator authority]]></value>
+	</item>
+	<item name="about_member_condition_allow_admin">
+		<value xml:lang="ko"><![CDATA[관리자가 회원정보를 직접 변경하는 경우에는 이메일 주소 제공자 목록에 제한을 받지 않도록 합니다.]]></value>
+		<value xml:lang="en"><![CDATA[If the administrator manually changes the member information, do not limit the email address providers into the list.]]></value>
+	</item>
+	<item name="member_condition_allow_admin_otl">
+		<value xml:lang="ko"><![CDATA[관리자 권한이 상위 개념]]></value>
+		<value xml:lang="en"><![CDATA[Admin over the list]]></value>
+	</item>
+	<item name="member_condition_allow_admin_utl">
+		<value xml:lang="ko"><![CDATA[관리자 권한이 하위 개념]]></value>
+		<value xml:lang="en"><![CDATA[Admin under the list]]></value>
+	</item>
 	<item name="member_condition_allow_email_list">
 		<value xml:lang="ko"><![CDATA[회원 이메일 주소 제공자 설정]]></value>
 		<value xml:lang="en"><![CDATA[Member Email Address Providers]]></value>

@@ -4,8 +4,8 @@
 	<title xml:lang="en">Member Condition</title>
 	<description xml:lang="ko">회원 가입시 충족 되어야 할 조건을 설정할 수 있습니다. 이메일 주소 제공자 등의 설정입니다.</description>
 	<description xml:lang="en"></description>
-	<version>1.0.2</version>
-	<date>2015-03-23</date>
+	<version>1.0.3.alpha</version>
+	<date>2016-11-30</date>
 	<category>member</category>
 	<license>The MIT License (MIT)</license>
 

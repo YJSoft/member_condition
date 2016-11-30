@@ -26,6 +26,11 @@ class member_conditionAdminController extends member_condition
 		$config = new stdClass();
 
 		$config->allow_email_list = trim(Context::get('allow_email_list'));
+		$config->allow_admin = trim(Context::get('allow_admin'));
+		if( !in_array($config->allow_admin , array('otl','utl'), TRUE))
+		{
+			$config->allow_admin = 'utl';
+		}
 
 		$oModuleController->insertModuleConfig('member_condition', $config);
 		$this->setRedirectUrl(Context::get('error_return_url'));
